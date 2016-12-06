@@ -5,7 +5,11 @@
  * Copyright (c) 2015 Skezo;
  * Licensed under the MIT license */
 
-var Reticulum = (function () {
+
+module.exports = (function () {
+
+    var THREE = require('three');
+
     var INTERSECTED = null;
 
     var collisionList = [];
@@ -189,7 +193,7 @@ var Reticulum = (function () {
 
     };
 
-    //Sets the depth and scale of the reticle - reduces eyestrain and depth issues 
+    //Sets the depth and scale of the reticle - reduces eyestrain and depth issues
     reticle.setDepthAndScale = function( depth ) {
         //var crosshair = this.mesh;
         var crosshair = parentContainer;
@@ -243,7 +247,7 @@ var Reticulum = (function () {
         //Raycaster Setup
         raycaster = new THREE.Raycaster();
         vector = new THREE.Vector2(0, 0);
-        //Update Raycaster 
+        //Update Raycaster
         if(options.near && options.near >= 0 ) {
             raycaster.near = options.near;
         }
@@ -316,7 +320,7 @@ var Reticulum = (function () {
         try {
             raycaster.setFromCamera( vector, settings.camera );
         } catch (e) {
-            //Assumes PerspectiveCamera for now... 
+            //Assumes PerspectiveCamera for now...
             //Support for Three.js < rev70
             raycaster.ray.origin.copy( settings.camera.position );
             raycaster.ray.direction.set( vector.x, vector.y, 0.5 ).unproject( settings.camera ).sub( settings.camera.position ).normalize();
@@ -355,7 +359,7 @@ var Reticulum = (function () {
 
             //Is it a new object?
             if( INTERSECTED != newObj ) {
-                //If old INTERSECTED i.e. not null reset and gazeout 
+                //If old INTERSECTED i.e. not null reset and gazeout
                 if ( INTERSECTED ) {
                     gazeOut(INTERSECTED);
                 };
